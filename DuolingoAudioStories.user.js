@@ -23,6 +23,20 @@ GM_addStyle(`
   }
 `)
 
+// Also hide the undecorated narrator text
+// (exclude text in Challenge exercises)
+
+GM_addStyle(`
+  :not(.challenge-marker) > .line-text-content:not(:hover) {
+    color: #def0a5;
+    background-color: #def0a5;
+  }
+
+  :not(.challenge-marker) > .line-text-content:hover {
+    color: #4c4c4c;
+  }
+`)
+
 // Force the child text to use the same
 // text color as the bubble container
 // (synchronized with the hover state)
