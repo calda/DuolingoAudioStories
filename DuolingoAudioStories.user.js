@@ -3,7 +3,7 @@
 // @namespace   Violentmonkey Scripts
 // @match       *://*.duolingo.com/stories/*
 // @grant       GM_addStyle
-// @version     1.1
+// @version     1.2
 // @author      Cal Stephens
 // @description Improve your listening comprehension by hiding the text in Duolingo stories
 // ==/UserScript==
@@ -11,18 +11,14 @@
 // Known CSS classes
 
 /// The outer-most CSS class of the Speech Bubbles
-const speech_bubble = "_3YBKO"
-
-/// Text that appears outside of speech bubbles
-const challenge_marker = "_2rXtz"
-const line_text_content = "_2rXtz"
+const speech_bubble = "_3jGFa"
 
 /// The text inside a speech bubble
-const synced_text = "JQRA4"
-const highlighted = "V0X_u"
+const synced_text = "_2igzU"
+const highlighted = "_3Curv"
 
 /// The "play audio" button
-const play_line_audio_button = "bV45r"
+const play_line_audio_button = "_3xGhq"
 
 
 // Hide the text in the speech bubble
@@ -39,31 +35,17 @@ GM_addStyle(`
   }
 `)
 
-// Also hide the undecorated narrator text
-// (exclude text in Challenge exercises)
-
-GM_addStyle(`
-  :not(.${challenge_marker}) > .${line_text_content}:not(:hover) {
-    color: #def0a5;
-    background-color: #def0a5;
-  }
-
-  :not(.${challenge_marker}) > .${line_text_content}:hover {
-    color: #4c4c4c;
-  }
-`)
-
 // Force the child text to use the same
 // text color as the bubble container
 // (synchronized with the hover state)
 
 GM_addStyle(`
   .${synced_text}.${highlighted} {
-    color: inherit
+    color: inherit !important
   }
 
   .${synced_text} {
-    color: inherit
+    color: inherit !important
   }
 `);
 
@@ -106,7 +88,7 @@ document.addEventListener('keyup', (e) => {
         .filter(button => button.offsetParent !== null);
     
     if (visiblePlayButtons.count == 0) return
-    var playButton = visiblePlayButtons[playButtons.length - 1]
+    var playButton = visiblePlayButtons[visiblePlayButtons.length - 1]
     
     // and simulate a click event.
     playButton.click()
